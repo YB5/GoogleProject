@@ -60,18 +60,21 @@ def check_dif1(s, t):
 #  -> list[AutoCompleteData]
 def get_best_k_completions(prefix: str):
     result = []
-    sub_d = initial_function.d[len(prefix.split())]
+    sub_d = initial_function.d_final[len(prefix.split())]
     scores = []
-    for i in sub_d.items():
-        if len(i[0]) == len(prefix):
-            sc = check_dif0(prefix, i[0])
+    print(sub_d)
+    for i in sub_d:
+        keys_to_find = list(i.keys())[0]
+        values_to_find = list(i.values())[0]
+        if len(keys_to_find) == len(prefix):
+            sc = check_dif0(prefix, keys_to_find)
             if sc > 0:
-                scores.append((sc, i[1]))
+                scores.append((sc, values_to_find))
         else:
-            sc = check_dif1(prefix, i[0])
+            sc = check_dif1(prefix, keys_to_find)
             if sc > 0:
-                scores.append((sc, i[1]))
-    sorted_scores =  sorted(scores, key = lambda x: (x[0], x[1][0]))[:4]
+                scores.append((sc, values_to_find))
+    sorted_scores = sorted(scores, key=lambda x: (x[0], x[1][0]))[:4]
     for r in sorted_scores:
         result.append(AutoCompleteData(r[1][0], r[1][1], r[1][2], r[0]))
     return result
