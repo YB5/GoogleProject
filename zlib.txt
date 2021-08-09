@@ -1,0 +1,4 @@
+Exception raised on compression and decompression errors.
+
+Changed in version 3.0: Always returns an unsigned value. To
+   generate the same numeric value across all Python versions and
