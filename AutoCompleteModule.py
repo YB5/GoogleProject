@@ -7,7 +7,7 @@ def check_dif0(s, t):
     dif = 0
     for i in range(len(s)):
         if dif > 1:
-            return -1
+            break
         if s[i] == t[i]:
             cost = cost + 2
             continue
@@ -23,6 +23,8 @@ def check_dif0(s, t):
             else:
                 cost = cost - 1
             dif = dif + 1
+    if dif > 1:
+        return -6
     return cost
 
 
@@ -36,7 +38,7 @@ def check_dif1(s, t):
     j = 0
     for i in range(len(s)):
         if dif > 1:
-            return -1
+            break
         if s[i] == t[j]:
             cost = cost + 2
             j = j + 1
@@ -54,6 +56,8 @@ def check_dif1(s, t):
                 cost = cost - 2
             j = j + 2
             dif = dif + 1
+    if dif > 1:
+        return -6
     return cost
 
 
@@ -68,11 +72,11 @@ def get_best_k_completions(prefix: str):
         values_to_find = list(i.values())[0]
         if len(keys_to_find) == len(prefix):
             sc = check_dif0(prefix, keys_to_find)
-            if sc > 0:
+            if sc > -6:
                 scores.append((sc, values_to_find))
-        else:
+        elif abs(len(keys_to_find) - len(prefix)) == 1:
             sc = check_dif1(prefix, keys_to_find)
-            if sc > 0:
+            if sc > -6:
                 scores.append((sc, values_to_find))
     sorted_scores = sorted(scores, key=lambda x: (x[0], x[1][0]))[:4]
     for r in sorted_scores:
