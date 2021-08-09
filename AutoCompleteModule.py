@@ -35,26 +35,25 @@ def check_dif1(s, t):
         t = temp
     cost = 0
     dif = 0
-    j = 0
-    for i in range(len(s)):
+    i1 = 0
+    for i2 in range(len(t)):
         if dif > 1:
             break
-        if s[i] == t[j]:
+        if s[i1] == t[i2]:
             cost = cost + 2
-            j = j + 1
+            i1 = i1 + 1
             continue
-        if s[i] != t[j]:
-            if i == 0:
+        if s[i1] != t[i2]:
+            if i1 == 0:
                 cost = cost - 10
-            elif i == 1:
+            elif i1 == 1:
                 cost = cost - 8
-            elif i == 2:
+            elif i1 == 2:
                 cost = cost - 6
-            elif i == 3:
+            elif i1 == 3:
                 cost = cost - 4
             else:
                 cost = cost - 2
-            j = j + 2
             dif = dif + 1
     if dif > 1:
         return -6
@@ -78,7 +77,7 @@ def get_best_k_completions(prefix: str):
             sc = check_dif1(prefix, keys_to_find)
             if sc > -6:
                 scores.append((sc, values_to_find))
-    sorted_scores = sorted(scores, key=lambda x: (x[0], x[1][0]))[:4]
+    sorted_scores = sorted(scores, key=lambda x: (x[0], x[1][0]), reverse=True)[:4]
     for r in sorted_scores:
         result.append(AutoCompleteData(r[1][0], r[1][1], r[1][2], r[0]))
     return result
