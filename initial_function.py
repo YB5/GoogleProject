@@ -1,7 +1,7 @@
 import threading
 import zipfile
 import os
-
+import re
 d = {}
 d_final = {}
 
@@ -29,6 +29,7 @@ d_final = {}
 def read_from_zip():
     with zipfile.ZipFile("wave.zip", "r") as f:
         list_of_files = f.namelist()
+        regex = re.compile('[^a-zA-Z0-9]')
         for elem in list_of_files:
             ext = os.path.splitext(elem)[-1]
             if ext == ".txt":
@@ -40,7 +41,8 @@ def read_from_zip():
                     n = len(tmp)
                     for i in range(n + 1):
                         for j in range(i + 1, n + 1):
-                            sli = " ".join(tmp[i:j])
+                            sli = " ".join(tmp[i:j]).lower()
+                            sli = regex.sub(' ', sli)
                             if sli not in d.keys():
                                 d[sli] = []
                             d[sli].append([" ".join(tmp), elem, i])
