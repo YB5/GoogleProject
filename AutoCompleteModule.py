@@ -39,11 +39,7 @@ def check_dif1(s, t):
     for i2 in range(len(t)):
         if dif > 1 or i1 >= len(s):
             break
-        if s[i1] == t[i2]:
-            cost = cost + 2
-            i1 = i1 + 1
-            continue
-        if s[i1] != t[i2]:
+        if i1 >= len(s) or s[i1] != t[i2]:
             if i1 == 0:
                 cost = cost - 10
             elif i1 == 1:
@@ -55,6 +51,9 @@ def check_dif1(s, t):
             else:
                 cost = cost - 2
             dif = dif + 1
+        else:
+            cost = cost + 2
+            i1 = i1 + 1
     if dif > 1:
         return -6
     return cost
