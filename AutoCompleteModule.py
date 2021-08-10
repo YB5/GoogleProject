@@ -1,5 +1,6 @@
 from AutoCompleteData import AutoCompleteData
 import initial_function
+MINIMUMVALUE = -12
 
 
 def check_dif0(s, t):
@@ -24,7 +25,7 @@ def check_dif0(s, t):
                 cost = cost - 1
             dif = dif + 1
     if dif > 1:
-        return -6
+        return MINIMUMVALUE
     return cost
 
 
@@ -55,7 +56,7 @@ def check_dif1(s, t):
             cost = cost + 2
             i1 = i1 + 1
     if dif > 1:
-        return -6
+        return MINIMUMVALUE
     return cost
 
 
@@ -69,13 +70,15 @@ def get_best_k_completions(prefix: str):
         values_to_find = list(i.values())[0]
         if len(keys_to_find) == len(prefix):
             sc = check_dif0(prefix, keys_to_find)
-            if sc > -6:
-                scores.append((sc, values_to_find))
+            if sc > MINIMUMVALUE:
+                for some_result in values_to_find:
+                    scores.append((sc, some_result))
         elif abs(len(keys_to_find) - len(prefix)) == 1:
             sc = check_dif1(prefix, keys_to_find)
-            if sc > -6:
-                scores.append((sc, values_to_find))
-    sorted_scores = sorted(scores, key=lambda x: (x[0], x[1][0]), reverse=True)[:4]
+            if sc > MINIMUMVALUE:
+                for some_result in values_to_find:
+                    scores.append((sc, some_result))
+    sorted_scores = sorted(scores, key=lambda x: (x[0], x[1][0]), reverse=True)[:5]
     for r in sorted_scores:
         result.append(AutoCompleteData(r[1][0], r[1][1], r[1][2], r[0]))
     return result
