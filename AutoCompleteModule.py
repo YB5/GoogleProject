@@ -1,5 +1,6 @@
 from AutoCompleteData import AutoCompleteData
 import initial_function
+
 MINIMUMVALUE = -12
 
 
@@ -79,6 +80,7 @@ def get_best_k_completions(prefix: str):
                 for some_result in values_to_find:
                     scores.append((sc, some_result))
     sorted_scores = sorted(scores, key=lambda x: (x[0], x[1][0]), reverse=True)[:5]
+
     for r in sorted_scores:
         result.append(AutoCompleteData(r[1][0], r[1][1], r[1][2], r[0]))
     return result

@@ -44,12 +44,12 @@ def read_from_zip():
                             if sli not in d.keys():
                                 d[sli] = []
                             d[sli].append([" ".join(tmp), elem, i])
-    #             thr = []
-    #             for i in range(0, len(lines), len(lines) // 5):
-    #                 thred = HandleLine(lines[i:i + len(lines) // 5], elem)
-    #                 thr.append(thred)
-    #             for i in thr:
-    #                 i.start()
+                # thr = []
+                # for i in range(0, len(lines), len(lines) // 5):
+                #     thred = HandleLine(lines[i:i + len(lines) // 5], elem)
+                #     thr.append(thred)
+                # for i in thr:
+                #     i.start()
     #
     # for i in thr:
     #     i.join()
